@@ -3,8 +3,11 @@ package com.example.demo.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -34,9 +37,11 @@ public class Customer {
     private String phone;
 
     @Column(name="create_date")
+    @CreationTimestamp
     private Date create_date;
 
     @Column(name="last_update")
+    @UpdateTimestamp
     private Date last_update;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
@@ -47,5 +52,13 @@ public class Customer {
     private Division division;
 
 
-
+    public void add(Cart cart) {
+        if (cart != null){
+            if (carts == null){
+                carts = new HashSet<>();
+            }
+            carts.add(cart);
+            cart.setCustomer(this);
+        }
+    }
 }
