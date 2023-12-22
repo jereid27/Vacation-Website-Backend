@@ -2,6 +2,7 @@ package com.example.demo.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -10,6 +11,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+@NoArgsConstructor
 @Entity
 @Table(name="customers")
 @Getter
@@ -48,8 +50,19 @@ public class Customer {
     private Set<Cart> carts;
 
     @ManyToOne
-    @JoinColumn(name="division_id", nullable = false)
+    @JoinColumn(name="division_id")
     private Division division;
+
+    public Customer(String firstName, String lastName, String address,
+                    String postal_code, String phone, Division division){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.postal_code = postal_code;
+        this.phone = phone;
+        this.division = division;
+    }
+
 
 
     public void add(Cart cart) {

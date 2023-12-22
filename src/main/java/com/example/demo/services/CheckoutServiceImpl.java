@@ -47,7 +47,7 @@ public class CheckoutServiceImpl implements CheckoutService{
         customer.add(cart);
 
         //save to database
-        customerRepository.save(customer);
+        //customerRepository.save(customer);
         cartRepository.save(cart);
 
         cart.setStatus(Cart.StatusType.ordered);

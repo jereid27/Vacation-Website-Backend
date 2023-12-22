@@ -36,7 +36,7 @@ public class CartItem {
     @JoinColumn(name = "cart_id", nullable = false)
     private Cart cart;
 
-    @ManyToMany(mappedBy = "cartItems")
+    @ManyToMany(mappedBy = "cartitems")
     private Set<Excursion> excursions;
 
 }
