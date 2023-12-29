@@ -38,19 +38,25 @@ public class CheckoutServiceImpl implements CheckoutService{
 
         //populate cart with cartItems.
         Set<CartItem> cartItems = purchase.getCartItems();
+        if (cartItems.isEmpty()){
+            return new PurchaseResponse("Cart Empty");
+        }
         cartItems.forEach(item -> cart.add(item));
 
         cart.setCartItem(purchase.getCartItems());
         cart.setCustomer(purchase.getCustomer());
+
         //populate customer with cart
         Customer customer = purchase.getCustomer();
         customer.add(cart);
+
+        cart.setStatus(Cart.StatusType.ordered);
 
         //save to database
         //customerRepository.save(customer);
         cartRepository.save(cart);
 
-        cart.setStatus(Cart.StatusType.ordered);
+
 
         //return a response
         return new PurchaseResponse(orderTrackingNumber);
